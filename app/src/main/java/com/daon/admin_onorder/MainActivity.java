@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Sam4sPrint sam4sPrint1 = app.getPrinter();
             try {
-                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.20.191", 9100);
+                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.1.100", 9100);
                 Thread.sleep(300);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Sam4sPrint sam4sPrint1 = app.getPrinter();
             try {
-                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.20.191", 9100);
+                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.1.100", 9100);
                 Thread.sleep(300);
             } catch (Exception exception) {
                 exception.printStackTrace();
