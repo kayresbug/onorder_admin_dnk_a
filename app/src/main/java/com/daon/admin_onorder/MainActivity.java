@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot item : snapshot.getChildren()) {
                             PrintOrderModel printOrderModel = item.getValue(PrintOrderModel.class);
                             if (printOrderModel.getPrintStatus().equals("x")) {
-                                print(printOrderModel);
+//                                print(printOrderModel);
                                 print2(printOrderModel);
                                 printOrderModel.setPrintStatus("o");
                                 FirebaseDatabase.getInstance().getReference().child("order").child(pref.getString("storename", "")).child(time).child(item.getKey()).setValue(printOrderModel);
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Sam4sPrint sam4sPrint1 = app.getPrinter();
             try {
-                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.1.100", 9100);
+                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.20.191", 9100);
                 Thread.sleep(300);
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -331,11 +331,11 @@ public class MainActivity extends AppCompatActivity {
         String order = printOrderModel.getOrder();
         order = order.replace("###", "");
         order = order.replace("##", "");
-        try {
-            Log.d("daon_test","print ="+sam4sPrint.getPrinterStatus());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Log.d("daon_test","print ="+sam4sPrint.getPrinterStatus());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         Sam4sBuilder builder = new Sam4sBuilder("ELLIX30", Sam4sBuilder.LANG_KO);
         try {
             // top
@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
             builder.addFeedLine(1);
             builder.addText("돈내코두부");
             builder.addFeedLine(1);
-            builder.addText("김경 \t");
+            builder.addText("김경애 \t");
             builder.addText("101-25-66308 \t");
             builder.addText("Tel : 064-796-0517");
             builder.addFeedLine(1);
@@ -388,18 +388,18 @@ public class MainActivity extends AppCompatActivity {
             builder.addFeedLine(2);
             //menu
             DecimalFormat myFormatter = new DecimalFormat("###,###");
-
-            for (int i = 0; i < orderArr.length; i++) {
-                String arrOrder = orderArr[i];
-                String[] subOrder = arrOrder.split("##");
-                builder.addTextAlign(Sam4sBuilder.ALIGN_LEFT);
-                builder.addText(subOrder[0]);
-                builder.addText(subOrder[1]);
-                builder.addFeedLine(1);
-                builder.addTextAlign(Sam4sBuilder.ALIGN_RIGHT);
-                builder.addText(subOrder[2]);
-                builder.addFeedLine(2);
-            }
+//
+//            for (int i = 0; i < orderArr.length; i++) {
+//                String arrOrder = orderArr[i];
+//                String[] subOrder = arrOrder.split("##");
+//                builder.addTextAlign(Sam4sBuilder.ALIGN_LEFT);
+//                builder.addText(subOrder[0]);
+//                builder.addText(subOrder[1]);
+//                builder.addFeedLine(1);
+//                builder.addTextAlign(Sam4sBuilder.ALIGN_RIGHT);
+//                builder.addText(subOrder[2]);
+//                builder.addFeedLine(2);
+//            }
             builder.addText("------------------------------------------");
             builder.addFeedLine(1);
             // footer
@@ -446,6 +446,7 @@ public class MainActivity extends AppCompatActivity {
             builder.addText("감사합니다.");
             builder.addCut(Sam4sBuilder.CUT_FEED);
             sam4sPrint.sendData(builder);
+            Thread.sleep(300);
             sam4sPrint.closePrinter();
 
         } catch (Exception e) {
