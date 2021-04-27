@@ -274,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
             builder.addText(printOrderModel.getTime());
             builder.addFeedLine(1);
             builder.addCut(Sam4sBuilder.CUT_FEED);
-//            sam4sPrint.sendData(builder);
-//            sam4sPrint2.sendData(builder);
+            sam4sPrint.sendData(builder);
+            sam4sPrint2.sendData(builder);
 //            if (printOrderModel.getTable().contains("주문")) {
 //                sam4sPrint.sendData(builder);
 ////                sam4sPrint2.sendData(builder);
