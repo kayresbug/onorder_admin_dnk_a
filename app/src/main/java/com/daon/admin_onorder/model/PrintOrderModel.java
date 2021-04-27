@@ -5,15 +5,107 @@ public class PrintOrderModel {
     String order;
     String time;
     String printStatus;
+    String type;
+    String cardname;
+    String cardnum;
+    String authdate;
+    String authnum;
+    String purchasename;
+    String notice;
+    String vantr;
+    String price;
 
     public PrintOrderModel(){
 
     }
-    public PrintOrderModel(String table, String order, String time, String printStatus) {
+
+    public PrintOrderModel(String table, String order, String time, String printStatus, String type, String cardname, String cardnum, String authdate, String authnum, String purchasename, String notice, String vantr, String price) {
         this.table = table;
         this.order = order;
         this.time = time;
         this.printStatus = printStatus;
+        this.type = type;
+        this.cardname = cardname;
+        this.cardnum = cardnum;
+        this.authdate = authdate;
+        this.authnum = authnum;
+        this.purchasename = purchasename;
+        this.notice = notice;
+        this.vantr = vantr;
+        this.price = price;
+
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCardname() {
+        return cardname;
+    }
+
+    public void setCardname(String cardname) {
+        this.cardname = cardname;
+    }
+
+    public String getCardnum() {
+        return cardnum;
+    }
+
+    public void setCardnum(String cardnum) {
+        this.cardnum = cardnum;
+    }
+
+    public String getAuthdate() {
+        return authdate;
+    }
+
+    public void setAuthdate(String authdate) {
+        this.authdate = authdate;
+    }
+
+    public String getAuthnum() {
+        return authnum;
+    }
+
+    public void setAuthnum(String authnum) {
+        this.authnum = authnum;
+    }
+
+    public String getPurchasename() {
+        return purchasename;
+    }
+
+    public void setPurchasename(String purchasename) {
+        this.purchasename = purchasename;
+    }
+
+    public String getNotice() {
+        return notice;
+    }
+
+    public void setNotice(String notice) {
+        this.notice = notice;
+    }
+
+    public String getVantr() {
+        return vantr;
+    }
+
+    public void setVantr(String vantr) {
+        this.vantr = vantr;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getPrintStatus() {

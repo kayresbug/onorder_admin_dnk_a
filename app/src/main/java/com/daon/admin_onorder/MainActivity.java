@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.sam4s.printer.Sam4sBuilder;
 import com.sam4s.printer.Sam4sPrint;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -307,6 +308,149 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void print2(PrintOrderModel printOrderModel){
+
+        if(app.IsConnected1()==false)
+        {
+            Sam4sPrint sam4sPrint1 = app.getPrinter();
+            try {
+                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.1.100", 9100);
+                Thread.sleep(300);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            app.setPrinter(sam4sPrint1);
+        }
+        Sam4sPrint sam4sPrint = app.getPrinter();
+        String[] orderArr = printOrderModel.getOrder().split("###");
+        Log.d("daon_test", orderArr[0]);
+
+        String order = printOrderModel.getOrder();
+        order = order.replace("###", "");
+        order = order.replace("##", "");
+        try {
+            Log.d("daon_test","print ="+sam4sPrint.getPrinterStatus());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Sam4sBuilder builder = new Sam4sBuilder("ELLIX30", Sam4sBuilder.LANG_KO);
+        try {
+            // top
+            builder.addTextAlign(Sam4sBuilder.ALIGN_CENTER);
+            builder.addFeedLine(2);
+            builder.addTextBold(true);
+            builder.addTextSize(2,1);
+            builder.addText("신용매출");
+            builder.addFeedLine(1);
+            builder.addTextBold(false);
+            builder.addTextSize(1,1);
+            builder.addTextAlign(Sam4sBuilder.ALIGN_LEFT);
+            builder.addText("[고객용]");
+            builder.addFeedLine(1);
+            builder.addText(printOrderModel.getTime());
+            builder.addFeedLine(1);
+            builder.addText("돈내코두부");
+            builder.addFeedLine(1);
+            builder.addText("김경애 \t");
+            builder.addText("101-25-66308 \t");
+            builder.addText("Tel : 064-796-0517");
+            builder.addFeedLine(1);
+            builder.addText("제주 서귀포시 배낭골로 21길 19");
+            builder.addFeedLine(1);
+            // body
+            builder.addText("------------------------------------------");
+            builder.addFeedLine(1);
+            builder.addText("TID:\t");
+            builder.addText("AT0292221A \t");
+            builder.addText("A-0000 \t");
+            builder.addText("0017");
+            builder.addFeedLine(1);
+            builder.addText("카드종류: ");
+            builder.addTextSize(2,1);
+            builder.addTextBold(true);
+            builder.addText(printOrderModel.getCardname());
+            builder.addTextSize(1,1);
+            builder.addTextBold(false);
+            builder.addFeedLine(1);
+            builder.addText("카드번호: ");
+            builder.addText(printOrderModel.getCardnum());
+            builder.addFeedLine(1);
+            builder.addTextPosition(0);
+            builder.addText("거래일시: ");
+            builder.addText(printOrderModel.getAuthdate());
+            builder.addTextPosition(65535);
+            builder.addText("(일시불)");
+            builder.addFeedLine(1);
+            builder.addText("------------------------------------------");
+            builder.addFeedLine(2);
+            //menu
+            DecimalFormat myFormatter = new DecimalFormat("###,###");
+
+            for (int i = 0; i < orderArr.length; i++) {
+                String arrOrder = orderArr[i];
+                String[] subOrder = arrOrder.split("##");
+                builder.addTextAlign(Sam4sBuilder.ALIGN_LEFT);
+                builder.addText(subOrder[0]);
+                builder.addText(subOrder[1]);
+                builder.addFeedLine(1);
+                builder.addTextAlign(Sam4sBuilder.ALIGN_RIGHT);
+                builder.addText(subOrder[2]);
+                builder.addFeedLine(2);
+            }
+            builder.addText("------------------------------------------");
+            builder.addFeedLine(1);
+            // footer
+            builder.addTextAlign(Sam4sBuilder.ALIGN_LEFT);
+            builder.addText("IC승인");
+            builder.addTextPosition(120);
+            builder.addText("금  액 : ");
+            //builder.addTextPosition(400);
+            int a = (Integer.parseInt(printOrderModel.getPrice()))/10;
+            builder.addText(myFormatter.format(a*9)+"원");
+            builder.addFeedLine(1);
+            builder.addText("DDC매출표");
+            builder.addTextPosition(120);
+            builder.addText("부가세 : ");
+            builder.addText(myFormatter.format(a*1)+"원");
+            builder.addFeedLine(1);
+            builder.addTextPosition(120);
+            builder.addText("합  계 : ");
+            builder.addTextSize(2,1);
+            builder.addTextBold(true);
+            builder.addText(myFormatter.format(Integer.parseInt(printOrderModel.getPrice()))+"원");
+            builder.addFeedLine(1);
+            builder.addTextSize(1,1);
+            builder.addTextPosition(120);
+            builder.addText("승인No : ");
+            builder.addTextBold(true);
+            builder.addTextSize(2,1);
+            builder.addText(printOrderModel.getAuthnum());
+            builder.addFeedLine(1);
+            builder.addTextBold(false);
+            builder.addTextSize(1,1);
+            builder.addText("매입사명 : ");
+            builder.addText(printOrderModel.getNotice());
+            builder.addFeedLine(1);
+            builder.addText("가맹점번호 : ");
+            builder.addText("AT0292221A");
+            builder.addFeedLine(1);
+            builder.addText("거래일련번호 : ");
+            builder.addText(printOrderModel.getVantr());
+            builder.addFeedLine(1);
+            builder.addText("------------------------------------------");
+            builder.addFeedLine(1);
+            builder.addTextAlign(Sam4sBuilder.ALIGN_CENTER);
+            builder.addText("감사합니다.");
+            builder.addCut(Sam4sBuilder.CUT_FEED);
+            sam4sPrint.sendData(builder);
+            sam4sPrint.closePrinter();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
