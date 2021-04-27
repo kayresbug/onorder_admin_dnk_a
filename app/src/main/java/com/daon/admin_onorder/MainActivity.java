@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                             PrintOrderModel printOrderModel = item.getValue(PrintOrderModel.class);
                             if (printOrderModel.getPrintStatus().equals("x")) {
                                 print(printOrderModel);
+                                print2(printOrderModel);
                                 printOrderModel.setPrintStatus("o");
                                 FirebaseDatabase.getInstance().getReference().child("order").child(pref.getString("storename", "")).child(time).child(item.getKey()).setValue(printOrderModel);
 
@@ -273,8 +274,8 @@ public class MainActivity extends AppCompatActivity {
             builder.addText(printOrderModel.getTime());
             builder.addFeedLine(1);
             builder.addCut(Sam4sBuilder.CUT_FEED);
-            sam4sPrint.sendData(builder);
-            sam4sPrint2.sendData(builder);
+//            sam4sPrint.sendData(builder);
+//            sam4sPrint2.sendData(builder);
 //            if (printOrderModel.getTable().contains("주문")) {
 //                sam4sPrint.sendData(builder);
 ////                sam4sPrint2.sendData(builder);
@@ -353,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
             builder.addFeedLine(1);
             builder.addText("돈내코두부");
             builder.addFeedLine(1);
-            builder.addText("김경애 \t");
+            builder.addText("김경 \t");
             builder.addText("101-25-66308 \t");
             builder.addText("Tel : 064-796-0517");
             builder.addFeedLine(1);
