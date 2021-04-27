@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot item : snapshot.getChildren()) {
                             PrintOrderModel printOrderModel = item.getValue(PrintOrderModel.class);
                             if (printOrderModel.getPrintStatus().equals("x")) {
-//                                print(printOrderModel);
+                                print(printOrderModel);
                                 print2(printOrderModel);
                                 printOrderModel.setPrintStatus("o");
                                 FirebaseDatabase.getInstance().getReference().child("order").child(pref.getString("storename", "")).child(time).child(item.getKey()).setValue(printOrderModel);
@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
         {
             Sam4sPrint sam4sPrint1 = app.getPrinter();
             try {
-                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.20.191", 9100);
+                sam4sPrint1.openPrinter(Sam4sPrint.DEVTYPE_ETHERNET, "192.168.1.100", 9100);
                 Thread.sleep(300);
             } catch (Exception exception) {
                 exception.printStackTrace();
